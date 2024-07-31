@@ -9,7 +9,7 @@ import './models/usuarioModel.js'
 const PORT = process.env.PORT
 
 //importar as rotas
-import userRouter from './routes/userRoutes.js'
+import userRouter from './routes/userRouter.js'
 const app = express()
 
 

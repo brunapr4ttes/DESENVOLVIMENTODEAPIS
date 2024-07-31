@@ -1,9 +1,9 @@
 import { Router } from "express";
 
-import { register } from "../controllers/usuarioController.js";
+import { register } from "../controllers/userController.js";
 
 //importar os helpers
-import validarUsuario from "../helpers/validar_user.js";
+import validarUsuario from "../helpers/validarUser.js";
 
 const router = Router()
 
