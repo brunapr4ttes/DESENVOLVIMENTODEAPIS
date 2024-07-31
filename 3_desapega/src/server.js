@@ -8,7 +8,14 @@ import './models/usuarioModel.js'
 
 const PORT = process.env.PORT
 
+//importar as rotas
+import userRouter from './routes/userRoutes.js'
 const app = express()
+
+
+
+//Utilizar a rota
+app.use('/usuarios', userRouter)
 
 //404
 app.use((request, response)=>{
