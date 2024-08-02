@@ -5,6 +5,7 @@ import createUserToken from "../helpers/createUserToken.js"
 
 //Criar usuário
 export const register = (request, response) => {
+
     const {nome, email, telefone, senha, confirmsenha} = request.body
 
     const checkEmailSQL = /*sql*/ `SELECT * FROM usuarios WHERE ?? = ?`
@@ -113,7 +114,56 @@ export const login = (request, response) =>{
 
 export const checkUser = (request, response) => {
     let usuarioAtual
+    // armazenar o token do usuario que está logado na aplicação
 
-    //criar um helper para fazer a verificação
-    
+    if(request.headers.authorization){
+        const token = getToken(request)
+        
+        const decoded = jwt.decode(token, "SENHASUPERSEGURAEDIFICIL") // função para decodificar o token
+        
+        const usuarioId = decoded.id
+
+        const checkSql = /*sql*/ `select * from usuarios where ?? = ?`
+        const checkData = ['usuario_id', usuarioId]
+        conn.query(checkSql, checkData, (err, data)=>{
+            if(err){
+                console.error(err)
+                response.status(500).json({err: 'Erro ao verificar usuário'})
+                return
+            }
+
+            usuarioAtual = data[0]
+            response.status(200).json(usuarioAtual)
+        })
+    }else{
+
+    }
+    // criar um helper para fazer a verificação
+}
+
+export const getUserById = (request, response) => {
+    const {id} = request.params
+    const checkSql = /*sql*/ `SELECT usuario_id, nome, email, telefone, imagem FROM usuarios WHERE ?? = ??`;
+    const checkData = ["usuarios_id", id]
+    conn.query(checkSql, checkData, (err, data)=>{
+        if(err){
+            console.error(err)
+            response.status(500).json({msg:"Erro ao buscar usuário"})
+            return
+        }
+        if(data.length === 0 ){
+            response.status(404).json({msg: "Usuário não encontrado"})
+            return
+        }
+        const usuario = data[0]
+        response.status(200).json(usuario)
+    })
+}
+
+export const editUser = (request, response) =>{
+    const {id} = request.params
+
+    //verificar se o usuário está logado a partir do token
+    const token = getToken(request)
+    console.log(token) 
 }

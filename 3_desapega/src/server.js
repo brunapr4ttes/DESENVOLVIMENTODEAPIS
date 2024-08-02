@@ -10,9 +10,13 @@ const PORT = process.env.PORT
 
 //importar as rotas
 import userRouter from './routes/userRouter.js'
+
+
 const app = express()
 
-
+//NÃO ESQUEÇA DISSO NUNCA MAIS... OBRIGADO.
+app.use(express.urlencoded({extended: true}))
+app.use(express.json())
 
 //Utilizar a rota
 app.use('/usuarios', userRouter)

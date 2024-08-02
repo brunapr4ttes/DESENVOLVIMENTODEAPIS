@@ -1,6 +1,7 @@
-const validarUsuario = (request, response, next) => {
+const validarUsuario = (request, response,next) => {
+    console.log(request)
     const {nome, email, telefone, senha, confirmsenha} = request.body
-
+    
     if(!nome){
         response.status(400).json({message: "O nome é obrigatório"})
         return
@@ -17,7 +18,7 @@ const validarUsuario = (request, response, next) => {
     }
 
     if(!telefone){
-        response.status(400).json({message: "O telfone é obrigatório"})
+        response.status(400).json({message: "O telefone é obrigatório"})
         return
     }
 
