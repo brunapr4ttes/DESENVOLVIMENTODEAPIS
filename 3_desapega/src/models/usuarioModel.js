@@ -21,3 +21,5 @@ conn.query(tableUsuarios, (err)=>{
     }
     console.log('Tabela de [usuarios] criado com sucesso')
 })
+
+export default tableUsuarios;
